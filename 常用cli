@@ -150,3 +150,8 @@ git push origin v1.0.0
 
 // 一次性推送所有标签到远程
 git push origin --tags
+
+
+**************************************.gitignore************************************************
+// 忽略特俗文件,在git工作区的根目录下新建一个.gitignore文件，把要忽略的文件名写进去
+具体可参考 https://github.com/github/gitignore
