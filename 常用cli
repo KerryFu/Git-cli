@@ -1,0 +1,75 @@
+// 安装git后需配置用户名和邮箱
+git config --global user.name "kerryFu"
+git config --global user.email "furuigangsss@163.com"
+
+
+// 初始化本地git仓库（创建新仓库） 生成的.git目录是跟踪管理版本库的
+git init
+
+// 添加文件index.html （工作区working directory----暂存区stage）
+git add index.html
+// 当前目录下所有修改都添加到暂存区
+git add .
+
+// 提交（暂存区stage----当前分支） -m后面输入本次提交的说明
+git commit -m "write the index.html"
+
+// 将add和commit合为一步
+git commit -am "write the index.html"
+
+
+// 查看当前状态 (可以让我们时刻掌握当前库的状态，比如很长时间未coding，需要先看下此时是什么状态) 
+git status
+
+// 查看修改内容(先git status查看哪些文件修改过，再git diff查看修改内容)
+git diff index.html
+
+// 删除工作区文件
+git rm index.html
+
+// 递归删除(会删除当前目录下所有文件和子目录)
+git rm -r *
+
+// 撤销修改 (把工作区的修改全部撤销,把工作区文件误删了，也可以git checkout来找回)
+git checkout -- index.html
+
+***********************************************************************************************
+
+// 版本回退  (穿回过去)
+// 显示提交日志的历史记录
+git log
+
+// 回退到上一个版本（★危险指令）
+git reset --hard HEAR^ 
+
+// 回退到某个版本（git log会显示所有commit的版本号，如commit ea34578d5496d7dd233c827ed32a8cd576c5ee85）
+git reset --hard ea34578d5496d7dd233c827ed32a8cd576c5ee85
+// 或只写版本号前几位
+git rest --hard ea34578
+
+// 查看某个文件的内容
+git cat index.html
+
+// 版本回退（穿回过去后悔了，现在要重返未来）
+git relog
+
+****************************************暂存区***********************************************
+/*
+* git与svn等版本管理的不同，就是有暂存区stage，把文件往版本库添加，分
+* 1、用git add把文件添加进去，实际上是把文件修改从工作区（working directory） 添加到暂存区（stage）
+* 2、用git commit提交更改，实际是把暂存区的所有内容提交的当前分支，（★暂存区是git的重要概念）
+*/ 
+
+*****************************************管理修改**********************************************
+// git特点：管理修改，而不是管理文件，每次修改，如果不add，就不会加入到commit中
+
+*****************************************远程仓库***********************************************
+/*
+* 本地git仓库与远程git仓库通过ssh加密传输，
+* 1、创建SSK key，在用户主目录下查看是否有.ssh目录，如果有，在看下这个目录下是否有id_rsa和id_rsa.pub这两个文件，如果有，则进行步骤2，如果没有，
+* 则打开git Bash创建ssh key
+*
+*
+*
+************/ 远程仓库
+
