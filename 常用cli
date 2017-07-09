@@ -33,7 +33,12 @@ git rm -r *
 // 撤销修改 (把工作区的修改全部撤销,把工作区文件误删了，也可以git checkout来找回)
 git checkout -- index.html
 
-***********************************************************************************************
+// 从远程的分支获取最新的版本到本地
+git pull （从远程获取最新版本并merge到本地）
+git merge （从远程获取最新版本到本地，不会自动merge，合并需要git merge）
+
+
+****************************************版本回退*************************************************
 
 // 版本回退  (穿回过去)
 // 显示提交日志的历史记录
@@ -67,9 +72,81 @@ git relog
 /*
 * 本地git仓库与远程git仓库通过ssh加密传输，
 * 1、创建SSK key，在用户主目录下查看是否有.ssh目录，如果有，在看下这个目录下是否有id_rsa和id_rsa.pub这两个文件，如果有，则进行步骤2，如果没有，
-* 则打开git Bash创建ssh key
-*
-*
-*
-************/ 远程仓库
+* 则打开git Bash创建ssh key，输入命令一路回车成功后，在目录下有id_rsa（私钥）和id_rsa.pub（公钥）两个文件
+* ssh-keygen -t rsa -C "furuigangsss@163.com" 
+* 2、 在github网页上打开"Account settings"，"SSH Keys"页面，然后点"Add SSH Key",填上任意title，在key文本框粘贴id_rsa.pub的内容，点"Add key"即可
+*/
 
+// 把本地仓库关联到远程库
+git romote add origin git@github.com:kerryFu/Git-cli.git
+
+// 把当前分支推送到远程master分支（首次推送git push -u origin master，将当前分支与远程分支关联）
+git push origin master
+
+// 克隆远程库
+git clone XXX
+
+****************************************分支管理************************************************
+// 查看当前分支
+git branch
+
+// 创建name分支
+git branch name
+
+// 切换到name分支
+git checkout name
+
+// 创建name分支并切换到name分支
+git checkout -b name
+// 等价于下面两条指令
+git branch name
+git checkout name
+
+// 合并某分支到当前分支（确定当前分支，和要合并的分支）
+git merge name
+
+// 删除某分支 
+git branch -d name
+
+****************************************bug分支*********************************************
+// 你在dev的工作暂未开发完毕，无法提交，但master分支有bug需要立即修复
+
+/*
+* 1、在dev分支将工作现场“储藏”起来，  git stash
+* 2、git status查看工作区是干净的，可以在master创建分支来修复bug
+* 3、切到master发支    git checkout master
+* 4、在master上创建临时分支issue101   git checkout -b issue101
+* 5、在issue101上修复bug，然后添加git add file，提交git commit -m "fix the issue101"
+* 6、切换到master分支，将issue101分支合并到当前分支 git checkout master, git merge issue101
+* 7、删除issue101分支 git branch -d issue101
+* 8、切到dev分支，找到“储藏”的工作现场，git stash list
+* 9、恢复并删除stash内容， git stash pop，再git stash list，就看不到stash内容了
+* 10、多次恢复时，先git stash list查看，恢复指定的的stash，用命令git stash apply stash@{0}
+***/
+*************************************feature分支*******************************************
+// 开发新特性，增加新功能
+
+****************************************标签管理*******************************************
+// 切换到要打标签的分支，然后git tag
+git tag v1.0.0
+
+//  查看所有标签
+git tag
+
+// 给历史commit打标签（先git log查看版本号）
+git tag v0.9.0 7825a50
+
+// 查看表签信息
+git show tag v1.0.0
+
+// 创建带有说明的标签 -a表示标签名，-m表示说明文字
+git tag -a v1.0.0 -m "version 1.0.0 released" 7825a50
+
+// 删除标签
+git tag -d v1.0.0
+
+// 推送某个标签到远程
+git push origin v1.0.0
+
+// 一次性推送所有标签到远程
+git push origin --tags
